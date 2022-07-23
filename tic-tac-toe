@@ -1,0 +1,235 @@
+Letters = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
+print("---------")
+print("|       |")
+print("|       |")
+print("|       |")
+print("---------")
+
+# Creating variables for counters and flags 
+
+space_flag = 0
+x_winner = 0
+o_winner = 0
+x_count = 0
+o_count = 0
+game = True
+
+#Setting the board up by rows, columns, and diagnals
+
+rows = [[Letters[0], Letters[1], Letters[2]],
+        [Letters[3], Letters[4], Letters[5]],
+        [Letters[-3], Letters[-2], Letters[-1]]]
+#Enter coordinates and check if they are digits, out of range, or the cell is alrady taken
+
+r = 0
+c = 0
+
+while game:
+    
+    while True:
+        row = input("> ").split()
+    
+        if row[0].isnumeric() == True and row[1].isnumeric() == True:
+            r = int(row[0])
+            c = int(row[1])
+        
+            if r > 0 and r <= 3 and c > 0 and c <= 3:
+            
+                if rows[r - 1][c - 1] == "X" or rows[r - 1][c - 1] == "O":
+                    print("This cell is occupied! Choose another one!")
+                else:
+                    break
+            else:
+                print("Coordinates should be from 1 to 3!")
+        
+        else:
+            print("You should enter numbers!")
+
+    # Add X to empty cell and output updated board
+
+    rows[r - 1][c - 1] = "X"
+    space_flag += 1
+
+    print("---------")
+    print("|", rows[0][0], rows[0][1], rows[0][2], "|")
+    print("|", rows[1][0], rows[1][1], rows[1][2], "|")
+    print("|", rows[2][0], rows[2][1], rows[2][2], "|")
+    print("---------")
+    
+    column = [[rows[0][0], rows[1][0], rows[2][0]],
+             [rows[0][1], rows[1][1], rows[2][1]],
+             [rows[0][2], rows[1][2], rows[2][2]]]
+             
+    diagnal = [[rows[0][0], rows[1][1], rows[2][2]],
+              [rows[2][0], rows[1][1], rows[0][2]]]
+              
+    # Going through each space and checking whats in it
+
+    for i in range(len(rows)):
+        x_flag = 0
+        o_flag = 0
+        for j in range(len(rows)):
+            if rows[i][j] == "X":
+                x_flag += 1 
+                x_count += 1
+            elif rows[i][j] == "O":
+                o_flag += 1
+                o_count += 1
+        if x_flag == 3:
+            x_winner += 1
+        elif o_flag == 3:
+            o_winner += 1
+    if x_winner == 1:
+        print("X wins")
+        break
+    elif space_flag == 9 and x_winner == 1:
+        print("X wins")
+        break
+
+    for i in range(len(column)):
+        x_flag = 0
+        o_flag = 0
+        for j in range(len(column)):
+            if column[i][j] == "X":
+                x_flag += 1 
+            elif column[i][j] == "O":
+                o_flag += 1
+        if x_flag == 3:
+            x_winner += 1
+        elif o_flag == 3:
+            o_winner += 1
+    if x_winner == 1:
+        print("X wins")
+        break
+    elif space_flag == 9 and x_winner == 1:
+        print("X wins")
+        break
+    
+    
+    for i in range(len(diagnal)):
+        x_flag = 0
+        o_flag = 0
+        for j in range(len(diagnal) + 1):
+            if diagnal[i][j] == "X":
+                x_flag += 1
+            elif diagnal[i][j] == "O":
+                o_flag += 1
+        if x_flag == 3:
+            x_winner += 1
+        elif o_flag == 3:
+            o_winner += 1
+    
+    #Printing the outcome
+    
+    if x_winner == 1:
+        print("X wins")
+        break
+    elif space_flag == 9 and x_winner == 1:
+        print("X wins")
+        break
+    elif space_flag == 9 and x_winner == 0 and o_winner == 0:
+        print("Draw")
+        break
+    
+    
+    #Repeat process but for second player
+    while True:
+        row = input("> ").split()
+    
+        if row[0].isnumeric() == True and row[1].isnumeric() == True:
+            r = int(row[0])
+            c = int(row[1])
+        
+            if r > 0 and r <= 3 and c > 0 and c <= 3:
+            
+                if rows[r - 1][c - 1] == "X" or rows[r - 1][c - 1] == "O":
+                    print("This cell is occupied! Choose another one!")
+                else:
+                    break
+            else:
+                print("Coordinates should be from 1 to 3!")
+        
+        else:
+            print("You should enter numbers!")
+
+    # Add O to empty cell and output updated board
+    
+    rows[r - 1][c - 1] = "O"
+    space_flag += 1
+
+    print("---------")
+    print("|", rows[0][0], rows[0][1], rows[0][2], "|")
+    print("|", rows[1][0], rows[1][1], rows[1][2], "|")
+    print("|", rows[2][0], rows[2][1], rows[2][2], "|")
+    print("---------")
+
+    column = [[rows[0][0], rows[1][0], rows[2][0]],
+             [rows[0][1], rows[1][1], rows[2][1]],
+             [rows[0][2], rows[1][2], rows[2][2]]]
+             
+    diagnal = [[rows[0][0], rows[1][1], rows[2][2]],
+              [rows[2][0], rows[1][1], rows[0][2]]]
+
+    for i in range(len(rows)):
+        x_flag = 0
+        o_flag = 0
+        for j in range(len(rows)):
+            if rows[i][j] == "X":
+                x_flag += 1 
+                x_count += 1
+            elif rows[i][j] == "O":
+                o_flag += 1
+                o_count += 1
+        if x_flag == 3:
+            x_winner += 1
+        elif o_flag == 3:
+            o_winner += 1
+    if o_winner == 1:
+        print("O wins")
+        break
+    elif space_flag == 9 and o_winner == 1:
+        print("O wins")
+        break
+
+    for i in range(len(column)):
+        x_flag = 0
+        o_flag = 0
+        for j in range(len(column)):
+            if column[i][j] == "X":
+                x_flag += 1 
+            elif column[i][j] == "O":
+                o_flag += 1
+        if x_flag == 3:
+            x_winner += 1
+        elif o_flag == 3:
+            o_winner += 1
+    if o_winner == 1:
+        print("O wins")
+        break
+    elif space_flag == 9 and o_winner == 1:
+        print("O wins")
+        break
+
+    for i in range(len(diagnal)):
+        x_flag = 0
+        o_flag = 0
+        for j in range(len(diagnal) + 1):
+            if diagnal[i][j] == "X":
+                x_flag += 1
+            elif diagnal[i][j] == "O":
+                o_flag += 1
+        if x_flag == 3:
+            x_winner += 1
+        elif o_flag == 3:
+            o_winner += 1
+            
+    if o_winner == 1:
+        print("O wins")
+        break
+    elif space_flag == 9 and o_winner == 1:
+        print("O wins")
+        break
+    elif space_flag == 9 and x_winner == 0 and o_winner == 0:
+        print("Draw")
+        break
+    
